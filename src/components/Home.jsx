@@ -2,9 +2,10 @@ import React from 'react'
 import img1 from "../Assets/Apple.jpg"
 import img2 from "../Assets/gettyimages.jpg"
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
 
-
- 
+const Home = () => {
+  const dispatch= useDispatch();
 const ProductList =[
   {
     name:"Mac book",
@@ -21,12 +22,15 @@ const ProductList =[
   }
 ];
 
+
+
+
 const AddtoCartHandler=(options)=>{
   console.log(options);
+  dispatch({type:"addToCart", payload:options})
   toast.success("Added to cart");
 };
 
-const Home = () => {
   return (
     <div className='home'>
      {
