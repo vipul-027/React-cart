@@ -1,65 +1,62 @@
-import React from 'react'
+
 import img1 from "../Assets/Apple.jpg"
 import img2 from "../Assets/gettyimages.jpg"
-import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+
+
+import React from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+
+
 
 const Home = () => {
-  const dispatch= useDispatch();
-const ProductList =[
-  {
-    name:"Mac book",
-    price:1500,
-    imgsrc:img1,
-    id:"dsafdsf"
-  },
+  const productList = [
+    {
+      name: "Mac Book",
+      price: 12000,
+      imgSrc: img1,
+      id: "asdhajsdbhjabhsjdfdfv",
+    },
+    {
+      name: "Black Shoes",
+      price: 490,
+      imgSrc: img2,
+      id: "sdjfdlaajsdbhjabhsjdfdfv",
+    },
+  ];
 
-  {
-    name:"pen",
-    price:123,
-    imgsrc:img2,
-    id:"adefgg"
-  }
-];
+  const dispatch = useDispatch();
 
-
-
-
-const AddtoCartHandler=(options)=>{
-  console.log(options);
-  dispatch({type:"addToCart", payload:options})
-  toast.success("Added to cart");
-};
-
+  const addToCartHandler = (options) => {
+    dispatch({ type: "addToCart", payload: options });
+    dispatch({ type: "calculatePrice" });
+    toast.success("Added To Cart");
+  };
   return (
-    <div className='home'>
-     {
-      ProductList.map(i=>(
-        <ProductCard 
+    <div className="home">
+      {productList.map((i) => (
+        <ProductCard
           key={i.id}
-          imgsrc={i.imgsrc}
+          imgSrc={i.imgSrc}
           name={i.name}
           price={i.price}
           id={i.id}
-          handler={AddtoCartHandler}
+          handler={addToCartHandler}
         />
-      ))
-     }
-      </div>
+      ))}
+    </div>
   );
 };
 
-
-const ProductCard = ({name, id, price, handler, imgsrc}) => (
-      
-   <div className="productCard">
-    <img src={imgsrc}  alt={name}/>
+const ProductCard = ({ name, id, price, handler, imgSrc }) => (
+  <div className="productCard">
+    <img src={imgSrc} alt={name} />
     <p>{name}</p>
     <h4>${price}</h4>
-    <button onClick={()=>handler({name, price, id, quantity: 1, imgsrc})}>
+    <button onClick={() => handler({ name, price, id, quantity: 1, imgSrc })}>
       Add to Cart
-      </button>
-   </div>
+    </button>
+  </div>
 );
 
-export default Home
+export default Home;
